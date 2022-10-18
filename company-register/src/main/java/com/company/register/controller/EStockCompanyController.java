@@ -1,0 +1,15 @@
+package com.company.register.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/api/v1.0/market/company")
+public class EStockCompanyController {
+	
+	
+	
+	
+	
+
+}
