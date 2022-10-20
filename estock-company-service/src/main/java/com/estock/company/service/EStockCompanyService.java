@@ -1,7 +1,5 @@
 package com.estock.company.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +15,10 @@ public class EStockCompanyService {
 		return eStockCompanyRepository.save(company);
 	}
 
-	public EStockCompany getCompanyByCode(Integer companyCode) {
-		Optional<EStockCompany> findById = eStockCompanyRepository.findById(companyCode);
-		return findById.get();
-	}
+	/*
+	 * public EStockCompany getCompanyByCode(Integer companyCode) {
+	 * Optional<EStockCompany> findById =
+	 * eStockCompanyRepository.findById(companyCode); return findById.get(); }
+	 */
 
 }
