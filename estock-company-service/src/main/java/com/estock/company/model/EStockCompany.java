@@ -1,9 +1,13 @@
 package com.estock.company.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,5 +30,7 @@ public class EStockCompany {
 	private String companyTurnover;
 	private String companyWebsite;
 	private String stockEnlistedIn;
+	@CreationTimestamp
+	private LocalDateTime createdOn;
 
 }
