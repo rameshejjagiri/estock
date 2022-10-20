@@ -1,0 +1,58 @@
+server:
+  port: 8989
+  
+management:  endpoint:    gateway:      enabled: true
+  endpoints:    web:      exposure:        include:        - gateway
+        
+        
+spring:  application:    name: API-GATEWAY
+  cloud:    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+                  routes:
+      - id: MEMBER-SERVICE
+        uri: lb://MEMBER-SERVICE
+        predicates:
+        - Path=/member/**
+        filters:
+        - AuthFilter
+        
+        
+      - id: member-claim-service
+        uri: lb://CLAIM-SERVICE
+        predicates:
+        - Path=/claim/** 
+       
+      - id: member-dependent-service
+        uri: lb://DEPENDENT-SERVICE
+        predicates:
+        - Path=/dependent/** 
+         
+      - id: member-login-service
+        uri: lb://MEMBER-LOGIN-SERVICE
+        predicates:
+        - Path=/login/**  
+        
+      - id: member-registratoin-service
+        uri: lb://MEMBER-REGISTRATION-SERVICE
+        predicates:
+        - Path=/register/**    
+        
+       
+             discovery:        locator:          lower-case-service-id: true
+          enabled: true
+    discovery:      enabled: true
+       
+eureka:  client:    register-with-eureka: true
+    fetch-registry: true
+    service-url:      defaultZone: http://localhost:8761/eureka/ 
+  instance: 
+    hostname: localhost
+    
+    
