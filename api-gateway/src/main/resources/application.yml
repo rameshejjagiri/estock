@@ -7,12 +7,12 @@ management:  endpoint:    gateway:      enabled: true
   
 spring:  application:    name: API-GATEWAY
   cloud:    gateway:
-      default-filters:
-        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+     # default-filters:
+      #  - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
       globalcors:
         corsConfigurations:
           '[/**]':
-            allowedOrigins: "*"
+            allowedOrigins: "http://localhost:4200/"
             allowedMethods: "*"
             allowedHeaders: "*"
                   routes:
@@ -22,12 +22,11 @@ spring:  application:    name: API-GATEWAY
         - Path=/api/v/1.0/market/stock/** 
 #        filters:
 #       - AuthFilter
-        
-        
-      - id: estock-stock-service
-        uri: lb://CLAIM-SERVICE
+       
+      - id: ESTOCK-COMPANY-SERVICE
+        uri: lb://ESTOCK-COMPANY-SERVICE
         predicates:
-        - Path=/api/v/1.0/market/stock/** 
+        - Path=/api/v1.0/market/company/** 
       
              discovery:        locator:          lower-case-service-id: true
           enabled: true
@@ -38,5 +37,6 @@ eureka:  client:    register-with-eureka: true
     service-url:      defaultZone: http://localhost:8761/eureka/ 
   instance: 
     hostname: localhost
-    
-    
+
+
+

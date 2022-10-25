@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.estock.company.DTO.EStockCompanyDTO;
 import com.estock.company.model.EStockCompany;
 import com.estock.company.model.Stock;
 import com.estock.company.service.EStockCompanyService;
@@ -24,30 +25,35 @@ import com.estock.company.utills.StockClient;
 public class EStockCompanyController {
 	@Autowired
 	private EStockCompanyService eStockCompanyService;
-	@Autowired
-	private StockClient stockClient;
 
 	@PostMapping(value = "/register")
-	public ResponseEntity<EStockCompany> registerCompany(@Valid @RequestBody EStockCompany company) {
+	public ResponseEntity<EStockCompany> registerCompany(@Valid @RequestBody EStockCompanyDTO company) {
 		EStockCompany registerCompany = eStockCompanyService.registerCompany(company);
 		return new ResponseEntity<EStockCompany>(registerCompany, HttpStatus.OK);
 	}
 
-	/*
-	 * @GetMapping(value = "/info/{companyCode}") public
-	 * ResponseEntity<EStockCompany> companyInfo(@PathVariable Integer companyCode)
-	 * {
-	 * 
-	 * return new
-	 * ResponseEntity<EStockCompany>(eStockCompanyService.getCompanyByCode(
-	 * companyCode), HttpStatus.OK); }
-	 */
-
 	@GetMapping(value = "/info/{companyCode}")
-	public ResponseEntity<List<Stock>> companyInfo(@PathVariable String companyCode) {
-		List<Stock> stocksByCompanyId = stockClient.getStocksByCompanyId(companyCode);
-		System.err.println(stocksByCompanyId);
-		return new ResponseEntity<List<Stock>>(stocksByCompanyId, HttpStatus.OK);
+	public ResponseEntity<EStockCompanyDTO> companyInfo(@PathVariable String companyCode) {
+
+		System.err.println(companyCode);
+
+		EStockCompanyDTO companyByCode = eStockCompanyService.getCompanyByCode(companyCode);
+		System.err.println(companyByCode);
+		return new ResponseEntity<EStockCompanyDTO>(companyByCode, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/getall")
+	public ResponseEntity<List<EStockCompanyDTO>> getAllCompanies() {
+		List<EStockCompanyDTO> allCompanies = eStockCompanyService.getAllCompanies();
+		System.err.println(allCompanies);
+		return new ResponseEntity<List<EStockCompanyDTO>>(allCompanies, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/delete/{companyCode}")
+	public ResponseEntity<Boolean> deleteCompany(@PathVariable String companyCode) {
+		Integer isDeleted = eStockCompanyService.deleteBYCOmpanyCode(companyCode);
+		System.err.println(isDeleted);
+		return new ResponseEntity<Boolean>(isDeleted==1?true:false, HttpStatus.OK);
 	}
 
 }

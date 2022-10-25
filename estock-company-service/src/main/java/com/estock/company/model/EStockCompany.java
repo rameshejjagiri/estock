@@ -55,4 +55,17 @@ public class EStockCompany {
 	@CreationTimestamp
 	private LocalDate createdOn;
 
+	public EStockCompany(@NotEmpty(message = "Company name required") @Size(min = 1) String companyName,
+			@NotEmpty @Size(min = 1) String companyCEO,
+			@Min(value = 100000000, message = "Company Turnover must be greater than 10Cr.") Integer companyTurnover,
+			@NotEmpty @NotEmpty(message = "Company website required") @Size(min = 1) String companyWebsite,
+			@NotEmpty String stockExlistedIn) {
+		super();
+		this.companyName = companyName;
+		this.companyCEO = companyCEO;
+		this.companyTurnover = companyTurnover;
+		this.companyWebsite = companyWebsite;
+		this.stockExlistedIn = stockExlistedIn;
+	}
+
 }

@@ -13,5 +13,7 @@ public interface StockClient {
 
 	@GetMapping("/add/{companyCode}")
 	List<Stock> getStocksByCompanyId(@PathVariable String companyCode);
+	@GetMapping("/delete/{companyCode}")
+	Boolean deleteAllStocByCompanyCode(@PathVariable String companyCode);
 
 }
