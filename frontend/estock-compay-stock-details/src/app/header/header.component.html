@@ -1,0 +1,22 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a href="#" class="navbar-brand"><img class="logo" src="assets/logo/logo.png" height="40"></a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse2">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse2">
+            <div class="navbar-nav">
+                <a routerLink="/" routerLinkActive="active" class="nav-item nav-link active">Home</a>
+                <a routerLink="/register" routerLinkActive="active" class="nav-item nav-link active">Register Company</a>
+                <a routerLink="/compaies-list" routerLinkActive="active" class="nav-item nav-link active">Companies List</a>
+            </div>
+
+        </div>
+        <form class="d-flex">
+
+            <input type="text" [(ngModel)]="companycode" name="companycode" id="companycode" class="form-control me-2" placeholder="Search">
+            <a [routerLink]="['/search/',companycode]" routerLinkActive="active" class="btn btn-primary  ">Search</a>
+        </form>
+
+    </div>
+</nav>

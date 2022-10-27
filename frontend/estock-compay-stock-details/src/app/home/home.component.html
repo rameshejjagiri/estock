@@ -1,0 +1,56 @@
+<section class="testimonial py-5" id="testimonial">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+
+            <div class="col-md-7 py-2 border rounded shadow bg-green" style="height: 300px;">
+                <h4 class="pb-4 text-center">Company Search</h4>
+                <form [formGroup]="companySearchForm" (ngSubmit)="onSubmit()">
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="xxx_fname" class="form-label required">Company Code</label>
+                            <select formControlName="companyCode" [(ngModel)]="companyCode" (change)="onSelectCompanyCode($event)" name="companyCode" id="companyCode" class="form-control">
+                <option selected="">Choose Company Code</option>
+                <option *ngFor="let com of companiesList" value= {{com.companyCode}}>{{com.companyCode}}
+              </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="xxx_fname" class="form-label required">Company Name</label>
+                            <select formControlName="companyName" [(ngModel)]="companyName" (change)="onSelectCompanyName($event)" name="companyName" id="companyName" class="form-control">
+                <option selected="">Choose Comapny Name</option>
+                <option *ngFor="let com of companiesList" value= {{com.companyCode}}>{{com.companyName}}
+              </select>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="xxx_fname" class="form-label required">From Date</label>
+                            <input formControlName="fromDate" type="date" class="form-control" name="fromDate" id="fromDate" placeholder="From Date">
+
+
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="xxx_fname" class="form-label required">To Date</label>
+                            <input formControlName="toDate" type="date" class="form-control" name="toDate" id="toDate" placeholder="To Date">
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <button type="submit" class="btn btn-block btn-outline-info rounded-pill">Search</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+<section class="testimonial" id="testimonial">
+    <div class="container">
+        <div class="row  justify-content-center">
+
+            <div class="col-md-7 py-2 border rounded ">
+                <app-company-daterange-search-results></app-company-daterange-search-results>
+            </div>
+        </div>
+    </div>
+</section>

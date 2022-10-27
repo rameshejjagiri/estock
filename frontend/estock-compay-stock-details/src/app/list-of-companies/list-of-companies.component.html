@@ -1,0 +1,46 @@
+<section class="testimonial py-5" id="testimonial">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <h1 class="pb-4 text-center">Company Details</h1>
+
+
+            <table class="table table-bordered border rounded shadow bg-green">
+                <thead>
+                    <tr>
+                        <th scope="col">Sl.no</th>
+                        <th scope="col">Company Code</th>
+                        <th scope="col">Company Name</th>
+                        <th scope="col">Company CEO</th>
+                        <th scope="col">Company Turnover</th>
+                        <th scope="col">Company Website</th>
+                        <th scope="col">Stock Exchange</th>
+                        <th scope="col">Stock Price</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Delete</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let com of company;let i=index">
+                        <td>{{ i }} </td>
+                        <td>{{ com.companyCode }} </td>
+                        <td>{{ com.companyName }} </td>
+                        <td>{{ com.companyCEO }} </td>
+                        <td>{{ com.companyTurnover }} </td>
+                        <td>{{ com.companyWebsite }} </td>
+                        <td>{{ com.stockExchange }} </td>
+                        <td>{{prices[i].stockPrice}}</td>
+                        <td>{{prices[i].createdOn| date:'shortDate'}}</td>
+                        <td>{{prices[i].createdOn| date:'shortTime'}}</td>
+                        <td>
+                            <button (click)="addStock(com.companyCode); " class="btn btn-raised mr-1 shadow-z-2 btn-primary btn-sm ">Add Stock</button></td>
+                        <td><button (click)="delete(com.companyCode); " class="btn btn-raised mr-1 shadow-z-2 btn-danger btn-sm ">Delete</button></td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+</section>

@@ -1,0 +1,34 @@
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Stock Price</th>
+            <th scope="col">Date</th>
+            <th scope="col">Time</th>
+
+        </tr>
+    </thead>
+    <tbody *ngFor="let stock of stocks">
+        <tr>
+            <td>{{stock.stockPrice}}</td>
+            <td>{{stock.createdOn| date:'shortDate'}}</td>
+            <td>{{stock.createdOn| date:'shortTime'}}</td>
+        </tr>
+    </tbody>
+</table>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Minimum</th>
+            <th scope="col">maximum</th>
+            <th scope="col">Average</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{min}}</td>
+            <td>{{max}}</td>
+            <td>{{avg}}</td>
+        </tr>
+    </tbody>
+</table>
