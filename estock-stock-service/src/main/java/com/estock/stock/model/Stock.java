@@ -1,6 +1,6 @@
 package com.estock.stock.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +23,7 @@ public class Stock {
 	private Integer stockId;
 	private Float stockPrice;
 	@CreationTimestamp
-	private LocalDate createdOn;
+	private LocalDateTime createdOn;
 	private String companyCode;
 
 }

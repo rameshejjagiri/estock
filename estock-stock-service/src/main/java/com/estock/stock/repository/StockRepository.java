@@ -2,6 +2,7 @@
 package com.estock.stock.repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -16,12 +17,12 @@ import com.estock.stock.model.Stock;
 @Transactional
 public interface StockRepository extends JpaRepository<Stock, Integer> {
 
-	List<Stock> findByCompanyCodeEquals(String companyCode);
+	List<Stock> findByCompanyCodeOrderByCreatedOnDesc(String companyCode);
 
 	List<Stock> findAllByCreatedOnGreaterThanEqualAndCreatedOnLessThanEqual(LocalDate startDate, LocalDate endDate);
 
-	List<Stock> findAllByCreatedOnGreaterThanEqualAndCreatedOnLessThanEqualAndCompanyCode(LocalDate startDate,
-			LocalDate endDate, String companyCode);
+	List<Stock> findAllByCreatedOnGreaterThanEqualAndCreatedOnLessThanEqualAndCompanyCode(LocalDateTime startDate,
+			LocalDateTime endDate, String companyCode);
 
 	@Modifying
 	Integer deleteByCompanyCode(String companyCode);

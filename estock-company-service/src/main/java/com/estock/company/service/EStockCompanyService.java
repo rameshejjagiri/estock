@@ -23,20 +23,22 @@ public class EStockCompanyService {
 	private StockClient stockClient;
 
 	public EStockCompany registerCompany(@Valid EStockCompanyDTO company) {
+		EStockCompany save = eStockCompanyRepository
+				.save(new EStockCompany(company.getCompanyName(), company.getCompanyCEO(), company.getCompanyTurnover(),
+						company.getCompanyWebsite(), company.getStockExchange()));
+		Stock stock = new Stock();
+		stock.setStockPrice(company.getStockPrice());
+		Boolean addStocksByCompanyCode = stockClient.addStocksByCompanyCode(save.getCompanyCode(), stock);
 
-		return eStockCompanyRepository.save(new EStockCompany(company.getCompanyName(), company.getCompanyCEO(),
-				company.getCompanyTurnover(), company.getCompanyWebsite(), company.getStockExchange()));
+		return save;
 	}
 
 	public EStockCompanyDTO getCompanyByCode(String companyCode) {
 		EStockCompany company = eStockCompanyRepository.findByCompanyCode(companyCode);
 
-		// List<Stock> stocksByCompanyId =
-		// stockClient.getStocksByCompanyId(companyCode);
+		List<Stock> stocksByCompanyId = stockClient.getStocksByCompanyId(companyCode);
 
-		EStockCompanyDTO eStockCompanyDTO = new EStockCompanyDTO(company.getCompanyCode(), company.getCompanyName(),
-				company.getCompanyCEO(), company.getCompanyTurnover(), company.getCompanyWebsite(),
-				company.getStockExlistedIn(), null, null, new ArrayList<Stock>());
+		EStockCompanyDTO eStockCompanyDTO = createCompanyDTO(company, stocksByCompanyId);
 		return eStockCompanyDTO;
 	}
 
@@ -44,10 +46,8 @@ public class EStockCompanyService {
 		List<EStockCompanyDTO> eStockCompanyDTO = new ArrayList<>();
 
 		for (EStockCompany company : eStockCompanyRepository.findAll()) {
-
-			eStockCompanyDTO.add(new EStockCompanyDTO(company.getCompanyCode(), company.getCompanyName(),
-					company.getCompanyCEO(), company.getCompanyTurnover(), company.getCompanyWebsite(),
-					company.getStockExlistedIn(), null, null, new ArrayList<Stock>()));
+			List<Stock> stocksByCompanyId = stockClient.getStocksByCompanyId(company.getCompanyCode());
+			eStockCompanyDTO.add(createCompanyDTO(company, stocksByCompanyId));
 		}
 
 		return eStockCompanyDTO;
@@ -57,12 +57,17 @@ public class EStockCompanyService {
 	public Integer deleteBYCOmpanyCode(String companyCode) {
 		// Delete teh companies from the Companies table
 		int deleteByCompanyCode = eStockCompanyRepository.deleteByCompanyCode(companyCode);
-		// eStockCompanyRepository.deleteById(companyCode);
-
-		// Delete all Stocks with Company Code
-		//Boolean deleteAllStocByCompanyCode = stockClient.deleteAllStocByCompanyCode(companyCode);
+		stockClient.deleteAllStocByCompanyCode(companyCode);
 
 		return deleteByCompanyCode;
+	}
+
+	private static EStockCompanyDTO createCompanyDTO(EStockCompany company, List<Stock> stocksByCompanyId) {
+		EStockCompanyDTO eStockCompanyDTO = new EStockCompanyDTO(company.getCompanyCode(), company.getCompanyName(),
+				company.getCompanyCEO(), company.getCompanyTurnover(), company.getCompanyWebsite(),
+				company.getStockExlistedIn(), company.getCreatedOn(), stocksByCompanyId.get(0).getStockPrice(),
+				stocksByCompanyId);
+		return eStockCompanyDTO;
 	}
 
 }

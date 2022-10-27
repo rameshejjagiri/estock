@@ -1,5 +1,6 @@
 package com.estock.company.DTO;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -25,13 +26,13 @@ import lombok.Setter;
 public class EStockCompanyDTO {
 	private String companyCode;
 	@NotEmpty(message = "Company name required")
-	@Size(min = 1)
+	@Size(min = 1,message = "Company name required")
 	private String companyName;
-	@NotEmpty
-	@Size(min = 1)
+	@NotEmpty(message = "Company CEO name required")
+	@Size(min = 1,message = "Company CEO name required")
 	private String companyCEO;
 	@Min(value = 100000000, message = "Company Turnover must be greater than 10Cr.")
-	private Integer companyTurnover;
+	private BigDecimal companyTurnover;
 	@NotEmpty
 	@NotEmpty(message = "Company website required")
 	@Size(min = 1)

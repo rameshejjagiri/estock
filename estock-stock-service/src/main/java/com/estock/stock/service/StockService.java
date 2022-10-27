@@ -1,6 +1,7 @@
 package com.estock.stock.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class StockService {
 	private StockRepository stackRepository;
 
 	public List<Stock> getStockByCompanyCode(String companyCode) {
-		List<Stock> findByCompanyCodeEquals = stackRepository.findByCompanyCodeEquals(companyCode);
+		List<Stock> findByCompanyCodeEquals = stackRepository.findByCompanyCodeOrderByCreatedOnDesc(companyCode);
 		return findByCompanyCodeEquals;
 	}
 
@@ -26,8 +27,8 @@ public class StockService {
 		return saved != null ? true : false;
 	}
 
-	public List<Stock> getStockByCompanyCodeAndBetweenDates(String companyCode, LocalDate startDate,
-			LocalDate endDate) {
+	public List<Stock> getStockByCompanyCodeAndBetweenDates(String companyCode, LocalDateTime startDate,
+			LocalDateTime endDate) {
 		List<Stock> stocks = stackRepository.findAllByCreatedOnGreaterThanEqualAndCreatedOnLessThanEqualAndCompanyCode(
 				startDate, endDate, companyCode);
 		return stocks;

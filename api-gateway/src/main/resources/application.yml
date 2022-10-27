@@ -7,21 +7,19 @@ management:  endpoint:    gateway:      enabled: true
   
 spring:  application:    name: API-GATEWAY
   cloud:    gateway:
-     # default-filters:
-      #  - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      default-filters:
+       - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
       globalcors:
         corsConfigurations:
           '[/**]':
-            allowedOrigins: "http://localhost:4200/"
+            allowedOrigins: "*"
             allowedMethods: "*"
             allowedHeaders: "*"
                   routes:
-      - id: ESTOCK-SERVICE
-        uri: lb://ESTOCK-SERVICE
+      - id: ESTOCK-STOCK-SERVICE
+        uri: lb://ESTOCK-STOCK-SERVICE
         predicates:
-        - Path=/api/v/1.0/market/stock/** 
-#        filters:
-#       - AuthFilter
+        - Path=/api/v/1.0/market/stock/**
        
       - id: ESTOCK-COMPANY-SERVICE
         uri: lb://ESTOCK-COMPANY-SERVICE

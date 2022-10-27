@@ -12,7 +12,7 @@
 	<groupId>com.estock.stock</groupId>
 	<artifactId>e-stock-stock-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>e-stock-stock-service</name>
+	<name>estock-stock-service</name>
 	<description>companyregister service</description>
 	<properties>
 		<java.version>1.8</java.version>

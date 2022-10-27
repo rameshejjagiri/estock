@@ -1,6 +1,7 @@
 package com.estock.stock.controller;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,10 @@ public class StockController {
 			@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
 			@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) {
 
-		List<Stock> stockList = stockService.getStockByCompanyCodeAndBetweenDates(companyCode, startDate, endDate);
+		System.err.println(startDate.atStartOfDay() + " " + endDate.atStartOfDay());
+
+		List<Stock> stockList = stockService.getStockByCompanyCodeAndBetweenDates(companyCode, startDate.atStartOfDay(),
+				endDate.atStartOfDay());
 
 		System.out.println(stockList);
 		return new ResponseEntity<List<Stock>>(stockList, HttpStatus.OK);
@@ -36,18 +40,15 @@ public class StockController {
 
 	@GetMapping(value = "/getall/{companyCode}")
 	public ResponseEntity<List<Stock>> getStock(@PathVariable String companyCode) {
-
 		List<Stock> stockListByCompanyCode = stockService.getStockByCompanyCode(companyCode);
-
 		System.out.println(stockListByCompanyCode);
 		return new ResponseEntity<List<Stock>>(stockListByCompanyCode, HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/add/{companyCode}")
-	public ResponseEntity<Boolean> addStock(@RequestBody Stock stock) {
+	public ResponseEntity<Boolean> addStock(@PathVariable("companyCode") String companyCode, @RequestBody Stock stock) {
 		System.err.println("Stock price is " + stock.getStockPrice());
-		Boolean isStockSaved = stockService.saveStock("Comp006", stock);
-
+		Boolean isStockSaved = stockService.saveStock(companyCode, stock);
 		return new ResponseEntity<>(isStockSaved, HttpStatus.OK);
 	}
 

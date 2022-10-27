@@ -34,9 +34,6 @@ public class EStockCompanyController {
 
 	@GetMapping(value = "/info/{companyCode}")
 	public ResponseEntity<EStockCompanyDTO> companyInfo(@PathVariable String companyCode) {
-
-		System.err.println(companyCode);
-
 		EStockCompanyDTO companyByCode = eStockCompanyService.getCompanyByCode(companyCode);
 		System.err.println(companyByCode);
 		return new ResponseEntity<EStockCompanyDTO>(companyByCode, HttpStatus.OK);

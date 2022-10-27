@@ -1,5 +1,6 @@
 package com.estock.company.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -45,7 +46,7 @@ public class EStockCompany {
 	@Size(min = 1)
 	private String companyCEO;
 	@Min(value = 100000000, message = "Company Turnover must be greater than 10Cr.")
-	private Integer companyTurnover;
+	private BigDecimal companyTurnover;
 	@NotEmpty
 	@NotEmpty(message = "Company website required")
 	@Size(min = 1)
@@ -57,7 +58,7 @@ public class EStockCompany {
 
 	public EStockCompany(@NotEmpty(message = "Company name required") @Size(min = 1) String companyName,
 			@NotEmpty @Size(min = 1) String companyCEO,
-			@Min(value = 100000000, message = "Company Turnover must be greater than 10Cr.") Integer companyTurnover,
+			@Min(value = 100000000, message = "Company Turnover must be greater than 10Cr.") BigDecimal companyTurnover,
 			@NotEmpty @NotEmpty(message = "Company website required") @Size(min = 1) String companyWebsite,
 			@NotEmpty String stockExlistedIn) {
 		super();

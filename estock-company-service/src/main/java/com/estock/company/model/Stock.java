@@ -1,12 +1,12 @@
 package com.estock.company.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.Data;
 @Data
 public class Stock {
 	private Integer stockId;
 	private Float stockPrice;
-	private LocalDate createdOn;
+	private LocalDateTime createdOn;
 	private String companyCode;
 }
