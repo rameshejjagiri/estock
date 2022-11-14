@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.estock.company.model.Stock;
 
-@FeignClient(name = "STOCK-SERVICE", url = "http://localhost:8082/api/v/1.0/market/stock")
+@FeignClient(name = "ESTOCK-STOCK-SERVICE", url = "http://estock-stock-service.eba-cgr2kbrf.ap-northeast-1.elasticbeanstalk.com/api/v/1.0/market/stock")
 public interface StockClient {
 
 	@PostMapping("/add/{companyCode}")
